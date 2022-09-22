@@ -10,6 +10,10 @@ public class Main {
         System.out.println("Please enter Player 2 name");
         Player player2 = new Player(scan.nextLine());
         System.out.println("Please enter size of the board");
+        while(!scan.hasNextInt()){
+            scan.nextLine();
+            System.out.println("Invalid input. Please enter size of the board");
+        }
         int size = scan.nextInt();
         while (size < 3){
             System.out.println("Size cant be less than 3");
@@ -25,6 +29,11 @@ public class Main {
         game.printBoard();
         while(true) {
             System.out.println(game.getName() + " turn. Please pick a row and column");
+                scan.nextLine();
+                if(!scan.hasNextInt()){
+                    System.out.println("Invalid input.");
+                    continue;
+                }
                 game.setRow(scan.nextInt());
                 game.setColumn(scan.nextInt());
             if(game.correctSpot(game.getRow(), game.getColumn())) {

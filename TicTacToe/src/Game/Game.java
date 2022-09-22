@@ -109,4 +109,51 @@ public class Game {
         turn++;
     }
 
+    public boolean checkWin() {
+        int winVertical = 0;
+        int winHorizontal = 0;
+        int winAcross1 = 0;
+        int winAcross2 = 0;
+        int victory;
+        if (getSize() > 3)
+            victory = 3;
+        else {
+            victory = 2;
+        }
+        for (int i = 0; i < getSize() - 1; i++) {
+            for (int j = 0; j < getSize() - 1; j++) {
+                if (board[i][j] == board[i][j + 1]
+                        && board[i][j] == getSign()) {
+                    winHorizontal++;
+                } else {
+                    winHorizontal = 0;
+                }
+                if (board[j][i] == board[j][i + 1]
+                        && board[j][i] == getSign()) {
+                    winVertical++;
+                } else {
+                    winVertical = 0;
+                }
+                if (i + j + 1 < getSize()
+                        && board[i + j][j] == board[i + j + 1][j + 1]
+                        && board[i + j][i] == getSign()) {
+                    winAcross1++;
+                } else {
+                    winAcross1 = 0;
+                }
+                /*if (i - j - 1 >= 0
+                        && board[i - j][j] == board[i - j - 1][j - 1]
+                        && board[i - j][j] == getSign()) {
+                    winAcross2++;
+                } else {
+                    winAcross2 = 0;
+                }*/
+            }
+        }
+        if (winHorizontal == victory || winVertical == victory || winAcross1 == victory) {
+            return true;
+        }
+        return false;
+    }
+}
 
