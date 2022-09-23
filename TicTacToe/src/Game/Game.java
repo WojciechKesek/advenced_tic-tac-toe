@@ -34,7 +34,7 @@ public class Game {
         return this.size;
     }
 
-    public char getArr(int row, int column) {
+    public char getBoard(int row, int column) {
         return board[row][column];
     }
 
@@ -46,7 +46,7 @@ public class Game {
         return column;
     }
 
-    public void setArr(int row, int column, char sign) {
+    public void setBoard(int row, int column, char sign) {
             this.board[row][column] = sign;
     }
     public boolean correctSpot(int row, int column) {
@@ -129,7 +129,7 @@ public class Game {
         else {
             victory = 2;
         }
-        for (int i = 0; i < getSize() - 1; i++) {
+        for (int i = 0; i < getSize(); i++) {
             for (int j = 0; j < getSize() - 1; j++) {
                 if (board[i][j] == board[i][j + 1]
                         && board[i][j] != EMPTY_SPOT) {
@@ -150,14 +150,17 @@ public class Game {
                 } else {
                     winAcross1 = 0;
                 }
-                if (i + j + 1 < getSize()
-                        && board[j][i + j] == board[j + 1][i+ j + 1]
-                        && board[j][i + j] != EMPTY_SPOT) {
+                if (i - j - 1 >= 0
+                        && board[i - j][j] == board[i - j - 1][j + 1]
+                        && board[i - j][j] != EMPTY_SPOT) {
                     winAcross2++;
                 } else {
                     winAcross2 = 0;
                 }
-                if (winHorizontal == victory || winVertical == victory || winAcross1 == victory) {
+                if (winHorizontal == victory 
+                || winVertical == victory 
+                || winAcross1 == victory 
+                || winAcross2 == victory ) {
                     return true;
                 }
             }

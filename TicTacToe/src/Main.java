@@ -8,10 +8,10 @@ public class Main {
         while(true){
             Player[] player = playerSetup();
             Game game = new Game(player[0], player[1], boardSetup());
-            System.out.println("Lets begin! \n");
+            System.out.println("\nLets begin! \n");
             game.printBoard();
             while(true) {
-                System.out.println(game.getName() + " turn.");
+                System.out.println("\n" + game.getName() + " turn.\n");
                 int[] spot = askUser();
                 while(!game.correctSpot(spot[0], spot[1]) || game.alreadyTaken(spot[0], spot[1])){
                     spot = askUser();
@@ -19,11 +19,11 @@ public class Main {
                 }
                 game.setRow(spot[0]);
                 game.setColumn(spot[1]);
-                game.setArr(game.getRow(), game.getColumn(), game.getSign());
+                game.setBoard(game.getRow(), game.getColumn(), game.getSign());
                 game.printBoard();
                 if(game.checkWin()){
-                    System.out.println(game.getName() + " wins");
-                    System.out.println("If you want to play again type 'yes', else press enter.");
+                    System.out.println(game.getName() + " wins!");
+                    System.out.println("\nIf you want to play again type 'yes', else press enter.");
                     scan.nextLine();
                     break;
                 }
@@ -37,14 +37,14 @@ public class Main {
     }
     public static Player[] playerSetup(){
         Player[] player = new Player[2];
-        System.out.println("Please enter Player 1 name");
+        System.out.println("\nPlease enter Player 1 name");
         player[0] = new Player(scan.nextLine());
-        System.out.println("Please enter Player 2 name");
+        System.out.println("\nPlease enter Player 2 name");
         player[1] = new Player(scan.nextLine());
         return player;
     }
     public static int boardSetup(){
-        System.out.println("Please enter size of the board");
+        System.out.println("\nPlease enter size of the board");
         while(!scan.hasNextInt()){
             System.out.println("Invalid input. Please enter size of the board");
             scan.nextLine();
@@ -52,12 +52,12 @@ public class Main {
         int size = scan.nextInt();
         while (size < 3){
             System.out.println("Size cant be less than 3");
-            System.out.println("Please enter size of the board");
+            System.out.println("\nPlease enter size of the board");
             size = scan.nextInt();
         }
         if (size > 3)
         {
-            System.out.println("You chose advanced game. First who will get 4 in a column, row or across wins");
+            System.out.println("\nYou chose advanced game. First who will get 4 in a column, row or across wins");
         }
         return size;
     }
