@@ -1,5 +1,7 @@
 package Game;
 
+import java.util.Scanner;
+
 public class Game {
     private int size;
     private char[][] board;
@@ -7,12 +9,13 @@ public class Game {
     private Player player2;
     private int row;
     private int column;
-    private static int turn = 0;
+    private int turn;
 
 
     public Game(Player player1, Player player2, int size) {
-        row = 0;
-        column = 0;
+        this.row = 0;
+        this.column = 0;
+        this.turn = 0;
         this.player1 = player1;
         this.player2 = player2;
         this.size = size;
@@ -24,7 +27,7 @@ public class Game {
         }
     }
 
-    public static int getTurn() {
+    public int getTurn() {
         return turn;
     }
 
@@ -45,11 +48,25 @@ public class Game {
     }
 
     public void setArr(int row, int column, char sign) {
-        if (this.board[row][column] == '_') {
             this.board[row][column] = sign;
+    }
+    public boolean correctSpot(int row, int column) {
+        if (row < getSize()
+                && column < getSize()
+                && row >= 0
+                && column >= 0) {
+            return true;
         } else {
-            System.out.println("This spot is already taken");
+            System.out.println("Invalid row or column");
+            return false;
         }
+    }
+    public boolean alreadyTaken(int row, int column){
+        if(this.board[row][column] != '_'){
+            System.out.println("This spot is already taken.");
+            return true;
+        }
+        return false;
     }
 
     public void setSize(int size) {
@@ -97,13 +114,6 @@ public class Game {
         }
     }
 
-    public boolean correctSpot(int row, int column) {
-        if (row < getSize() && column < getSize() && row >= 0 && column >= 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     public void endTurn() {
         turn++;
