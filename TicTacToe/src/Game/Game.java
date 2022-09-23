@@ -1,7 +1,5 @@
 package Game;
 
-import java.util.Scanner;
-
 public class Game {
     private int size;
     private char[][] board;
@@ -10,6 +8,7 @@ public class Game {
     private int row;
     private int column;
     private int turn;
+    private final static char EMPTY_SPOT = '_';
 
 
     public Game(Player player1, Player player2, int size) {
@@ -133,35 +132,35 @@ public class Game {
         for (int i = 0; i < getSize() - 1; i++) {
             for (int j = 0; j < getSize() - 1; j++) {
                 if (board[i][j] == board[i][j + 1]
-                        && board[i][j] == getSign()) {
+                        && board[i][j] != EMPTY_SPOT) {
                     winHorizontal++;
                 } else {
                     winHorizontal = 0;
                 }
-                if (board[j][i] == board[j][i + 1]
-                        && board[j][i] == getSign()) {
+                if (board[j][i] == board[j + 1][i]
+                        && board[j][i] != EMPTY_SPOT) {
                     winVertical++;
                 } else {
                     winVertical = 0;
                 }
                 if (i + j + 1 < getSize()
                         && board[i + j][j] == board[i + j + 1][j + 1]
-                        && board[i + j][i] == getSign()) {
+                        && board[i + j][j] != EMPTY_SPOT) {
                     winAcross1++;
                 } else {
                     winAcross1 = 0;
                 }
-                /*if (i - j - 1 >= 0
-                        && board[i - j][j] == board[i - j - 1][j - 1]
-                        && board[i - j][j] == getSign()) {
+                if (i + j + 1 < getSize()
+                        && board[j][i + j] == board[j + 1][i+ j + 1]
+                        && board[j][i + j] != EMPTY_SPOT) {
                     winAcross2++;
                 } else {
                     winAcross2 = 0;
-                }*/
+                }
+                if (winHorizontal == victory || winVertical == victory || winAcross1 == victory) {
+                    return true;
+                }
             }
-        }
-        if (winHorizontal == victory || winVertical == victory || winAcross1 == victory) {
-            return true;
         }
         return false;
     }

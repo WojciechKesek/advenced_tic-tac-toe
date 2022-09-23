@@ -5,26 +5,33 @@ import java.util.Scanner;
 public class Main {
     static Scanner scan = new Scanner(System.in);
     public static void main(String[] args) {
-        Player[] player = playerSetup();
-        Game game = new Game(player[0], player[1], boardSetup());
-        System.out.println("Lets begin! \n");
-        game.printBoard();
-        while(true) {
-            System.out.println(game.getName() + " turn.");
-            int[] spot = askUser();
-            while(!game.correctSpot(spot[0], spot[1]) || game.alreadyTaken(spot[0], spot[1])){
-                spot = askUser();
-                continue;
-            }
-            game.setRow(spot[0]);
-            game.setColumn(spot[1]);
-            game.setArr(game.getRow(), game.getColumn(), game.getSign());
+        while(true){
+            Player[] player = playerSetup();
+            Game game = new Game(player[0], player[1], boardSetup());
+            System.out.println("Lets begin! \n");
             game.printBoard();
-            if(game.checkWin()){
-                System.out.println(game.getName() + " wins");
+            while(true) {
+                System.out.println(game.getName() + " turn.");
+                int[] spot = askUser();
+                while(!game.correctSpot(spot[0], spot[1]) || game.alreadyTaken(spot[0], spot[1])){
+                    spot = askUser();
+                    continue;
+                }
+                game.setRow(spot[0]);
+                game.setColumn(spot[1]);
+                game.setArr(game.getRow(), game.getColumn(), game.getSign());
+                game.printBoard();
+                if(game.checkWin()){
+                    System.out.println(game.getName() + " wins");
+                    System.out.println("If you want to play again type 'yes', else press enter.");
+                    scan.nextLine();
+                    break;
+                }
+                game.endTurn();
+            }
+            if(!scan.nextLine().equals("yes")){
                 break;
             }
-            game.endTurn();
         }
         scan.close();
     }
